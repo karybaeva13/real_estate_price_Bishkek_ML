@@ -183,7 +183,7 @@ pip install -r requirements.txt
 ├── main.py               # Предобработка, EDA, обучение и оценка моделей
 ├── requirements.txt
 ├── test.csv
-└──  train.csv
+└── train.csv
 
 ```
 
