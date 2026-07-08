@@ -581,7 +581,7 @@ study = optuna.create_study(
     sampler=optuna.samplers.TPESampler(seed=42),
     pruner=optuna.pruners.MedianPruner(n_warmup_steps=5)
 )
-study.optimize(objective, n_trials=100, show_progress_bar=True)
+study.optimize(objective, n_trials=50, show_progress_bar=True)
 
 print("Лучшие параметры:", study.best_params)
 print("Лучший MAPE:", study.best_value)
