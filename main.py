@@ -526,10 +526,10 @@ from catboost import CatBoostRegressor
 '''Catboost из коробки'''
 
 model = CatBoostRegressor(
-    iterations=1000,
-    learning_rate=0.05,
-    depth=6,
-    loss_function='MAPE',
+    # iterations=1000,
+    # learning_rate=0.05,
+    # depth=6,
+    loss_function='RMSE',
     cat_features=['Состояние', 'Этаж', 'Комнаты', 'Серия'],
     verbose=100
 )
