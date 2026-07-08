@@ -526,9 +526,6 @@ from catboost import CatBoostRegressor
 '''Catboost из коробки'''
 
 model = CatBoostRegressor(
-    # iterations=1000,
-    # learning_rate=0.05,
-    # depth=6,
     loss_function='RMSE',
     cat_features=['Состояние', 'Этаж', 'Комнаты', 'Серия'],
     verbose=100
@@ -615,20 +612,21 @@ plt.show()
 '''Графики Optuna visualization'''
 import optuna.visualization as vis
 
-#1
+# 1. Как менялся скоринг по трайлам (с отметкой лучшего значения на каждый момент)
 vis.plot_optimization_history(study).show()
 
-#2
-vis.plot_slice(study, params=['learning_rate', 'depth']).show()
-
-#3
+# 2. Как выглядит "важность" каждого гиперпараметра для итогового скоринга
 vis.plot_param_importances(study).show()
 
-#4
+# 3. Как менялся конкретный гиперпараметр в зависимости от номера trial
+vis.plot_slice(study, params=['learning_rate', 'depth']).show()
+
+# 4. Параллельные координаты — сразу видно, какие сочетания параметров дают лучший скор
 vis.plot_parallel_coordinate(study).show()
 
-#5
+# 5. Контурный график для пары параметров (где скор выше — теплее цвет)
 vis.plot_contour(study, params=['learning_rate', 'depth']).show()
+
 
 '''Mape на выборке test (которая была выделена из файла train.csv)'''
 preds = best_model.predict(X_test)
@@ -649,3 +647,10 @@ plt.xlabel('Важность признака')
 plt.title('Важность признаков — CatBoostRegressor')
 plt.tight_layout()
 plt.show()
+
+
+'''# Сохранение модели для Hugging Face'''
+
+best_model.save_model('model.cbm')
+
+print(f'Признаки модели: {best_model.feature_names_}')
